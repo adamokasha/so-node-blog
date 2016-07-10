@@ -1,0 +1,45 @@
+extends layout
+
+block content
+   .top-margin
+   #post-show
+    h1=post.title
+    p.meta Posted in 
+     a(href='/posts/category/#{post.category}') #{post.category} 
+     | by #{post.author} 
+     | on #{moment(post.date).format("MM-DD-YYYY")}
+    if post.mainimage === 'noimage.jpg'
+    else
+     img.mainimage(src='/images/#{post.mainimage}')
+    !=post.body
+    #share-container
+     p Share:
+     #share
+      script.
+       $("#share").jsSocials({
+       shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
+       });
+    hr
+    if post.comments
+      h2.show-header Comments
+      each comment, i in post.comments
+       .comment
+        .avatar-container
+         if comment.socialMediaProfilePhoto
+          img.avatar-img(src='#{comment.socialMediaProfilePhoto}')
+         if comment.avatar
+          img.avatar-img(src='/images/#{comment.avatar}')
+        .comment-text
+         p.comment-name 
+          | Posted by 
+          span #{comment.name}
+          span  - #{moment(comment.date).fromNow()}
+         p.comment-body #{comment.body}
+    hr
+    h2.show-header Add Comment
+    p.sign-in
+      a(href='/register') Sign in
+      |  to add comments...
+    hr
+
+   include footer

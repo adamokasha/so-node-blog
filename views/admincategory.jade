@@ -1,0 +1,44 @@
+extends adminlayout
+
+block content
+ .top-margin
+ != messages()
+ #posts
+  if docs
+   each post, i in docs
+    .post
+     h1
+      a(href='/admin/show/#{post._id}')
+       =post.title
+     p.meta Posted in 
+      a(href='/admin/category/#{post.category}') #{post.category} 
+      | by #{post.author} 
+      | on #{moment(post.date).format("MM-DD-YYYY")}
+     if post.mainimage === 'noimage.jpg'
+     else
+      a(href='/admin/show/#{post._id}')
+       img.mainimage(src='/images/#{post.mainimage}')
+     !=truncateText(post.body,400)
+     a.more(href='/admin/show/#{post._id}') Read More
+     hr
+
+  #pagination-container
+   ul#pagination
+    li.prevpage
+     form.prev(action='/admin/category/#{category}/#{prevpage}', method="GET")
+      if prevDisabled
+       input(type='submit', id='prevpagedisabled', value='Prev' disabled)
+      else 
+       input(type='submit', id='prevpage', value='Prev')
+    ul#pages
+     if pages
+       each page, i in pages
+        li
+         a(href='/admin/category/#{category}/#{page}') #{page}
+    li.nextpage
+     form.next(action='/admin/category/#{category}/#{nextpage}', method="GET")
+      if nextDisabled
+       input(type='submit', id='nextpagedisabled', value='Next' disabled)
+      else
+       input(type='submit', id='nextpage', value='Next')
+ include footer

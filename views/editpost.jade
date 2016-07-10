@@ -1,0 +1,31 @@
+extends adminlayout
+
+block content 
+    .top-margin
+    #edit-post-container
+     h1.header-margin Edit Post
+     ul.errors
+          if errors
+             each error, i in errors
+                 li #{error.msg}
+     #edit-meta
+      p.meta Posted in 
+       a(href='/categories/show/#{post.category}') #{post.category} 
+       | by #{post.author} 
+       | on #{moment(post.date).format("MM-DD-YYYY")}
+     form#editpost-form(method='post', action='/admin/editpost')
+             input(name='postid', type='hidden', value='#{post._id}')
+             label Title
+             input(type='text', name='title', value='#{post.title}')
+             label Body
+             textarea(name='body', id='body')
+              !#{post.body}
+             input(name='submit',type='submit',value='Save')
+     script(src='/ckeditor/ckeditor.js')
+     script
+      | CKEDITOR.replace('body');
+ 
+     br
+     br
+
+    include footer

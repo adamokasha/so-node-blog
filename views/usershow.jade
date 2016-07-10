@@ -1,0 +1,52 @@
+extends userlayout
+
+block content
+   .top-margin
+   != messages()
+   if errors
+    ul.errors
+     each error, i in errors
+      li #{error.msg}
+   #post-show
+    h1=post.title
+    p.meta Posted in 
+     a(href='/users/category/#{post.category}') #{post.category} 
+     | by #{post.author} 
+     | on #{moment(post.date).format("MM-DD-YYYY")}
+    if post.mainimage === 'noimage.jpg'
+    else
+     img.mainimage(src='/images/#{post.mainimage}')
+    !=post.body
+    #share-container
+     p Share:
+     #share
+      script.
+       $("#share").jsSocials({
+       shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
+       });
+    hr
+    if post.comments
+      h2.show-header Comments
+      each comment, i in post.comments
+       .comment
+        .avatar-container
+         if comment.socialMediaProfilePhoto
+          img.avatar-img(src='#{comment.socialMediaProfilePhoto}')
+         if comment.avatar
+          img.avatar-img(src='/images/#{comment.avatar}')
+        .comment-text
+         p.comment-name 
+          | Posted by 
+          span #{comment.name}
+          span  - #{moment(comment.date).fromNow()}
+         p.comment-body #{comment.body}
+    hr
+    h2.show-header Add Comment
+    form#add-comment(method='post', action='/users/addcomment')
+      input(name='postid', type='hidden', value='#{post._id}')
+      label Type your comment below:
+      textarea(type='text', name='body', maxlength="500")
+      input.btn.btn-default(type='submit', name='submit',value='Add Comment')
+   br
+
+   include footer

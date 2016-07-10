@@ -1,0 +1,39 @@
+if loggedIn
+ include userlayout
+else
+ include layout
+
+block content
+ .top-margin
+ h1.header-margin About
+ hr
+ #about
+  #profile-photo
+    img(src='images/profilepic.jpg', alt='Profile Image')
+  .bio
+    .bio-top
+      h2 Your Name - Profession
+    ul.accordion
+      li
+        .bio-header
+          h2 About Me
+          i.fa.fa-chevron-down
+        p.submenu
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas non varius dolor. Maecenas et nibh nulla. Cras vulputate molestie tellus, id fermentum justo ultrices ut. Donec mattis, urna sed dignissim fermentum, ipsum lorem pharetra ipsum, vel pretium ex risus sit amet odio. In hac habitasse platea dictumst. Ut in ipsum purus. Quisque ac porttitor lectus, laoreet sodales lorem. Mauris faucibus non mauris nec commodo.
+      li
+        .bio-header
+          h2 What I Do
+          i.fa.fa-chevron-down
+        p.submenu
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas non varius dolor. Maecenas et nibh nulla. Cras vulputate molestie tellus, id fermentum justo ultrices ut. Donec mattis, urna sed dignissim fermentum, ipsum lorem pharetra ipsum, vel pretium ex risus sit amet odio. In hac habitasse platea dictumst. Ut in ipsum purus. Quisque ac porttitor lectus, laoreet sodales lorem. Mauris faucibus non mauris nec commodo.
+      li
+        .bio-header
+          h2 My Skillset
+          i.fa.fa-chevron-down
+        p.submenu
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas non varius dolor. Maecenas et nibh nulla. Cras vulputate molestie tellus, id fermentum justo ultrices ut. Donec mattis, urna sed dignissim fermentum, ipsum lorem pharetra ipsum, vel pretium ex risus sit amet odio. In hac habitasse platea dictumst. Ut in ipsum purus. Quisque ac porttitor lectus, laoreet sodales lorem. Mauris faucibus non mauris nec commodo.
+
+ br
+ br
+ br
+ include footer

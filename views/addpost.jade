@@ -1,0 +1,36 @@
+extends adminlayout
+
+block content 
+
+    .top-margin
+    ul.errors
+          if errors
+             each error, i in errors
+                 li #{error.msg}
+    #addpost-container
+     h1.header-margin Add a Post
+     hr
+     form#addpost-form(method='post', action='/admin/addpost', enctype="multipart/form-data")
+             label Title:
+             input(name='title', type='text')
+             label Category
+             select.form-control(name='category')
+              each category, i in categories
+               option(value='#{category.name}') #{category.name}
+             label Body
+             textarea(name='body', id='body')
+             label Main Image:
+             input(name='mainimage', type='file')
+             label Author:
+             select(name='author')
+                 option(value='Sam Okasha') Sam Okasha
+             input(name='submit',type='submit',value='Save')
+             script(src='/ckeditor/ckeditor.js')
+             script
+              | CKEDITOR.replace('body');
+
+
+     br
+     br
+     br
+    include footer

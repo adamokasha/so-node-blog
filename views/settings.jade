@@ -1,0 +1,88 @@
+extends adminlayout
+
+block content
+   .top-margin
+   != messages()
+   ul.errors
+    if errors
+     each error, i in errors
+      li #{error.msg}
+   h2.header-margin User Search
+   hr
+   form#user-search(action='/admin/settings/usersearch', method='POST')
+    input(type='text', name='query', placeholder='Enter Username')
+    input(type='submit', name='search', value='Search')
+   br
+   h2.header-margin Users
+   hr
+   table#users-table
+    caption Users
+    thead
+     tr
+       th Avatar
+       th Username
+       th Email
+       th Provider
+       th Is Active
+       th Suspend/Unsuspend
+    if docs
+     each user, i in docs 
+      tr
+       if user.socialMediaProfilePhoto
+        td 
+         .avatar-container
+          img.avatar-img(src='#{user.socialMediaProfilePhoto}')
+       else if user.avatar
+        td 
+         .avatar-container
+          img.avatar-img(src='/images/#{user.avatar}')
+       else 
+        td 
+         | n/a
+       td #{user.username}
+       if user.email
+        td #{user.email}
+       else
+        td
+         | n/a
+       td #{user.provider}
+       if user.suspended
+        td.text-suspended
+         | Suspended
+       else
+        td.text-active
+         | Active
+       if user.suspended
+        td 
+         form.unsuspend(action='/admin/settings/unsuspenduser', METHOD='post')
+          input(name='userid', type='hidden', value='#{user._id}')
+          input(type='submit', name='unsuspenduser',value='Unsuspend')
+       else
+        td
+         form.suspend(action='/admin/settings/suspenduser', METHOD='post')
+          input(name='userid', type='hidden', value='#{user._id}')
+          input(type='submit', name='suspenduser',value='Suspend')
+   #user-pagination-container
+     ul#pagination
+      li.prevpage
+       form.prev(action='/admin/settings/users/#{prevpage}', method="GET")
+        if prevDisabled
+         input(type='submit', id='prevpagedisabled', value='Prev' disabled)
+        else 
+         input(type='submit', id='prevpage', value='Prev')
+      ul#pages
+       if pages
+         each page, i in pages
+          li
+           a(href='/admin/settings/users/#{page}') #{page}
+      li.nextpage
+       form.next(action='/admin/settings/users/#{nextpage}', method="GET")
+        if nextDisabled
+         input(type='submit', id='nextpagedisabled', value='Next' disabled)
+        else
+         input(type='submit', id='nextpage', value='Next')
+   br
+
+   include footer 
+
+       

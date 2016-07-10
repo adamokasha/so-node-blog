@@ -1,0 +1,36 @@
+doctype html
+html
+ head
+   meta(charset='UTF-8')
+   meta(name='viewport', content='width=device-width')
+   title= title
+   link(rel='stylesheet', href='/stylesheets/normalize.css')
+   link(href='https://fonts.googleapis.com/css?family=Merriweather:400,300' rel='stylesheet' type='text/css')
+   link(rel='stylesheet' ,href='/stylesheets/font-awesome.min.css')
+   link(rel='stylesheet', href='/stylesheets/jssocials.css')
+   link(rel='stylesheet', href='/stylesheets/jssocials-theme-flat.css')
+   link(rel='stylesheet', href='/stylesheets/style.css')
+   script(src='/javascripts/jquery-1.12.1.min.js')
+   script(src='/javascripts/jssocials.min.js')
+   script(src='/javascripts/script.js')
+ body
+  header
+   #main-nav
+    .nav
+     h3.logo Your Blog
+     a.nav-burger
+      span
+    ul.nav-ul
+     li 
+      a(href='/') Home
+     li
+      a(href='/about') About
+     li
+      a(href='/contact') Contact
+     li
+      a(href='/register') Register
+     li
+      a(href='/login') Sign In
+  block content
+
+

@@ -1,0 +1,74 @@
+extends adminlayout
+
+block content
+   .top-margin
+   != messages()
+   if errors
+     ul.errors
+      each error, i in errors
+       li #{error.msg}
+   #post-show
+    h1=post.title
+    p.meta Posted in 
+     a(href='/admin/category/#{post.category}') #{post.category} 
+     | by #{post.author} 
+     | on #{moment(post.date).format("MM-DD-YYYY")}
+    if post.mainimage === 'noimage.jpg'
+    else
+     img.mainimage(src='/images/#{post.mainimage}')
+    !=post.body
+    #share-container
+     p Share:
+     #share
+      script.
+       $("#share").jsSocials({
+       shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
+       });
+    hr
+    if post.comments
+      h2.show-header Comments
+      each comment, i in post.comments
+       .comment
+        .avatar-container
+         if comment.socialMediaProfilePhoto
+          img.avatar-img(src='#{comment.socialMediaProfilePhoto}')
+         if comment.avatar
+          img.avatar-img(src='/images/#{comment.avatar}')
+        .comment-text
+         p.comment-name 
+          | Posted by 
+          span #{comment.name}
+          span  - #{moment(comment.date).fromNow()}
+         p.comment-body #{comment.body}
+        form.delete-comment(method='post', action='/admin/delcomment')
+         input(name='postid', type='hidden', value='#{post._id}')
+         input(name='commentid', type='hidden', value='#{comment._id}')
+         label.delete-btn(for='deletecomment')
+          i.icon-search.fa.fa-trash-o
+          |  Delete
+         input.btn.btn-default(type='submit', id='deletecomment', name='deletecomment',class='hidden', value='Delete')
+    hr
+    h2.show-header Add Comment
+    form#add-comment(method='post', action='/admin/addcomment')
+      input(name='postid', type='hidden', value='#{post._id}')
+      label Type your comment below:
+      textarea(type='text', name='body', maxlength="500")
+      input.btn.btn-default(type='submit', name='submit',value='Add Comment')
+    hr
+    h2.show-header Edit/Delete Post
+    #edit-delete-container
+     form.edit-post(method='get', action='/admin/editpost/#{post._id}')
+      input(name='postid', type='hidden', value='#{post._id}')
+      label.edit-btn(for='edit')
+       i.icon-search.fa.fa-edit
+       |  Edit
+      input(type='submit', id='edit', name='edit',value='Edit Post', class='hidden')
+     form.delete-post(method='post', action='/admin/deletepost')
+      input(name='postid', type='hidden', value='#{post._id}')
+      label.delete-btn(for='delete')
+       i.icon-search.fa.fa-trash-o
+       |  Delete
+      input(type='submit',id='delete', name='delete', class="hidden")
+     br
+     br
+   include footer
