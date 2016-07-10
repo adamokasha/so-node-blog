@@ -205,8 +205,8 @@ router.post('/settings/unsuspenduser',  function(req, res, next) {
 
 router.post('/addcomment', function(req, res, next) {
 	var postid = req.body.postid;
-	var name = req.user.username;
-	var email = req.body.email;
+	var userId = req.user._id;
+	var name= req.user.username;
 	var body = req.body.body;
 	var date = new Date();
 
@@ -219,15 +219,17 @@ router.post('/addcomment', function(req, res, next) {
 		res.render('adminshow', {errors: errors, post: post});
 		})
 	} else {
-		Post.findByIdAndUpdate(postid, 
-		{$push: {comments: {name: name, email: email, body: body, date: date}}}, 
-		{safe: true, upsert: true},
-		function(err, post){
-			if (err) throw err;
-			req.flash('success', 'Comment Added')
-			res.location('/admin/show/'+postid);
-			res.redirect('/admin/show/'+postid);
-	})
+		User.findById(userId, function(err, user){
+			Post.findByIdAndUpdate(postid, 
+			{$push: {comments: {name: name, avatar: user.avatar, socialMediaProfilePhoto: user.socialMediaProfilePhoto , body: body, date: date}}}, 
+			{safe: true, upsert: true},
+			function(err, post){
+				if (err) throw err;
+				req.flash('success', 'Comment Added')
+				res.location('/blog/admin/show/'+postid);
+				res.redirect('/blog/admin/show/'+postid);
+			});
+		});
 	}	
 });
 
