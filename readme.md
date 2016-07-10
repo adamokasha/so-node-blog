@@ -19,7 +19,7 @@ So-Node-Blog is an open source blog built with Node.js.
 
 ###MongoDB:
 * Change models and routes db connection to your mongoDB address(Do this for all routes and model files).
-* Create 'users' and 'posts' collection in the database.
+* Create 'users', 'categories', and 'posts' collection in the database.
 
 ###Author:
 * In view -> addpost.jade replace HTML select tag author option with your name.
