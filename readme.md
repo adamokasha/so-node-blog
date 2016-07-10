@@ -14,25 +14,25 @@ So-Node-Blog is an open source blog built with Node.js.
 ## Quick Config
 
 ###Login:
--In login.js route: Get Facebook and Google credentials by visiting developers website for each.
--Callbacks need to be modified to reflect domain name of your blog or site.
+* In login.js route: Get Facebook and Google credentials by visiting developers website for each.
+* Callbacks need to be modified to reflect domain name of your blog or site.
 
 ###MongoDB:
--Change models and routes db connection to your mongoDB address(Do this for all routes and model files).
--Create 'users' and 'posts' collection in the database.
+* Change models and routes db connection to your mongoDB address(Do this for all routes and model files).
+* Create 'users' and 'posts' collection in the database.
 
 ###Author:
--In view -> addpost.jade replace HTML select tag author option with your name.
+* In view -> addpost.jade replace HTML select tag author option with your name.
 
 ###Admin:
--Simply register as admin to get admin privileges.
+* Simply register as admin to get admin privileges.
 
 ###Contact page:
--Add your email provider, email address and password to index.js route.
+* Add your email provider, email address and password to index.js route.
 
 ###About:
--Swap profilepic.jpg(400x400px) for your own.
--Modify jade 'about.jade' with your own biographical information.
+* Swap profilepic.jpg(400x400px) for your own.
+* Modify jade 'about.jade' with your own biographical information.
 
 ## Built With
 
