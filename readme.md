@@ -1,6 +1,6 @@
 # SO-Node-Blog
 
-So-Node-Blog is an open source blog built with Node.js.
+So-Node-Blog is a blog built with Node.js.
 
 ## Features
 
